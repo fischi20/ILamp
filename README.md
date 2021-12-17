@@ -8,11 +8,11 @@ ILamp is a lamp build from the sense hat and a raspberry pi capable of interacti
   - Sense hat
   - [Adafruit IO account](https://io.adafruit.com/)
   - Packages
-    - sense-hat
+    - [sense-hat](https://pypi.org/project/sense-hat/)
     ```sh
     pip install sense-hat
     ```
-    - adafruit-io
+    - [adafruit-io](https://pypi.org/project/adafruit-io/)
     ```sh
     pip install adafruit-io
     ```
