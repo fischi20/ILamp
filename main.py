@@ -13,6 +13,20 @@ def updateLight(sense, color):
             sense.set_pixel(x,y, color)
 
 
+# doesn't work
+def alarmMode(sense):
+    """
+    A mode which in case of emergency makes SenseHat blink
+
+    Argument:
+    sense - senseHat
+    """
+    red = (255, 0, 0)
+    while True:
+        updateLight(sense, red)
+        sleep(.5)
+        sense.clear()
+
 sense = SenseHat()
 sense.clear()
 # sense.low_light = True
@@ -37,5 +51,5 @@ while True:
         else:
             color = (227, 147, 0) # dark orange 
 
-    updateLight(sense, color)
+    sense.clear(color)
     sleep(5) # sleep for n seconds
