@@ -1,0 +1,11 @@
+{
+    "$schema": "docs/config.scheme.json",
+    "Adafruit_IO_key": "",
+    "Adafruit_IO_username": "",
+    "low_light_mode": false,
+    "color": [
+        255, 255, 255
+    ],
+    "use_adafruit_color": true,
+    "temperature_treshhold": 20
+}
