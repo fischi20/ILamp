@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "properties": {
+        "Adafruit_IO_key": {
+            "type": "string",
+            "description": "Key to interact with Adafruit IO services"
+        },
+        "Adafruit_IO_username": {
+            "type": "string",
+            "description": "Username of the Adafruit IO account that's used to interact"
+        },
+        "low_light_mode": {
+            "type":"boolean",
+            "description": "Uses the Sense hat with a lower luminosity",
+            "default": false
+        },
+        "color":{
+            "type":"array",
+            "maxLength": 3,
+            "minLength": 3,
+            "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 255
+            },
+            "default": [255, 255, 255]
+        },
+        "use_adafruit_color":{
+            "type": "boolean",
+            "description": "Use the color saved in adafruit IO instead of the color in the config file",
+            "default": true
+        },
+        "temperature_treshhold":{
+            "type":"number",
+            "description": "Number used to switch color based on the temperature",
+            "default": 20
+        }
+    }
+}
