@@ -34,6 +34,18 @@
             "type":"number",
             "description": "Number used to switch color based on the temperature",
             "default": 20
+        },
+        "feeds":{
+            "type":"array",
+            "description": "Which feeds to listen on the adafruit IO service",
+            "items": {
+                "type": "string"
+            }
         }
-    }
+    },
+    "required":[
+        "Adafruit_IO_key",
+        "Adafruit_IO_username",
+        "feeds"
+    ]
 }
