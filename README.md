@@ -16,3 +16,10 @@ ILamp is a lamp build from the sense hat and a raspberry pi capable of interacti
     ```sh
     pip install adafruit-io
     ```
+## Setup
+  - install all the required packages
+  - copy config.example.json to config.json and fill in all the data
+  - run the application with the following command
+  ```sh
+  python main.py
+  ```
