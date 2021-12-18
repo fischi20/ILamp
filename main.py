@@ -5,8 +5,6 @@ from src.config_loader import load_config
 from src.adafruit import create_clients, setup_MQTTClient, get_client
 
 
-
-
 config = load_config(__file__)
 
 if not config:
