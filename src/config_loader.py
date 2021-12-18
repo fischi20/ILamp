@@ -9,7 +9,7 @@ def load_config(main_file):
 
     # load config from file
     try:
-        with open('config2.json', 'r', encoding='utf-8') as configfile:
+        with open('config.json', 'r', encoding='utf-8') as configfile:
             config = json.load(configfile)
     except FileNotFoundError:
         readme = pathlib.Path(main_file).parent.joinpath('README.md').resolve()
