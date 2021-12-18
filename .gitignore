@@ -2,3 +2,4 @@
 .devcontainer
 docs/resources/file.txt
 config.json
+.pylintrc
