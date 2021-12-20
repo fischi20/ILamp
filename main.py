@@ -27,6 +27,19 @@ def alarmMode(sense):
         sleep(.5)
         sense.clear()
 
+
+# manual mode
+def manualMode(sense, color):
+    """
+    Mode for a user to set the lamp color manually
+
+    Argument:
+    sense - senseHat
+    """
+    updateLight(sense, color)
+    # set flag to manual or whatever to prevent the system for 
+    # chaning the light based on the temperature
+
 sense = SenseHat()
 sense.clear()
 # sense.low_light = True
