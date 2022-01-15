@@ -36,10 +36,25 @@
             "default": 20
         },
         "feeds":{
-            "type":"array",
+            "type":"object",
             "description": "Which feeds to listen on the adafruit IO service",
-            "items": {
-                "type": "string"
+            "properties": {
+                "light_toggle": {
+                    "description": "Name of the feed which should bet used to toggle the light",
+                    "type":"string"
+                },
+                "light_color":{
+                    "description": "Name of the feed which should be used to set the light color",
+                    "type": "string"
+                },
+                "temp":{
+                    "type":"string",
+                    "description": "Name of the feed which should be used to upload the temperature to"
+                },
+                "humidity":{
+                    "type": "string",
+                    "description": "Name of the feed which should be used to upload the humidity to"
+                }
             }
         }
     },

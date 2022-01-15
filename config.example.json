@@ -8,5 +8,8 @@
     ],
     "use_adafruit_color": true,
     "temperature_treshhold": 20,
-    "feeds": ["ToggleLight", "LightColor"]
+    "feeds":{
+        "light_toggle": "ToggleLight",
+        "light_color": "LightColor"
+    }
 }
