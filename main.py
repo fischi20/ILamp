@@ -3,35 +3,25 @@ from time import sleep
 import sys
 from Adafruit_IO import Client, MQTTClient
 from src.config_loader import load_config
-from src.adafruit import create_clients, setup_MQTTClient, get_client, get_aio_client
+from src.adafruit import create_clients, setup_MQTTClient, get_client, get_aio_client, get_last, get_feed_id
 
 config = load_config(__file__)
 if not config: # exits if no config was found
     sys.exit()
 
 feeds = config.get("feeds") # feeds dictionary
-feed_list = list()
+feed_list = list() # feeds list
 for(k, value) in feeds.items(): #creates an array of all the feeds for mqtt client
     feed_list.append(value)
 
 #* globals
 color = (0, 0, 0)
+light_on = False
 
 # sense = SenseHat()
 # sense.clear()
 # sense.low_light = config.get('low_light_mode') or False
 
-def get_feed_id(feed_name):
-    """
-    Returns the feed id of the specified feed name
-    """
-    return aio_feeds.get(feed_name)
-
-def get_last(feed_name):
-    """
-    Returns the last value of the specified feed
-    """
-    return aio.receive_previous(get_feed_id(feed_name)).value
 
 def hex_to_rgb(value):
     """
@@ -55,8 +45,23 @@ def set_color(new_color):
         color = hex_to_rgb(new_color)
     
     color = new_color
-    
-    #updateLight(sense, color)
+    if(light_on):
+        #updateLight(sense, color)
+        print("Light color: " + str(color))
+
+def set_light(state):
+    """
+    Sets the light on or off
+
+    Argument:
+    state - boolean
+    """
+    global light_on
+    light_on = state
+    if(light_on):
+        set_color(color)
+    #else:
+    #  sense.clear()   
 
 def updateLight(sense, color):
     """
@@ -95,7 +100,7 @@ def feed_handler(client, feed_id, payload):
             print("Light off")
             
     if(feed_id == feeds.get("light_color")): #handles color change
-        print(f"New color: {hex_to_rgb(payload)}")
+        set_color(payload)
 
 
 create_clients(config.get("Adafruit_IO_username"), config.get("Adafruit_IO_key"))
@@ -103,15 +108,11 @@ setup_MQTTClient(feed_handler, feed_list)
 client = get_client()
 aio = get_aio_client()
 
-# Setup feed list for ids
-aio_feeds = dict()
-for f in aio.feeds():
-    print(f.name)
-    aio_feeds[f.name] = f.id
-
 client.connect()
 
-set_color(get_last("LightColor")) # load default color from adafruit_io
+set_light(get_last(feeds.get("light_toggle"))) # load the state of the light
+set_color(get_last(feeds.get("light_color"))) # load default color from adafruit_io
+
 
 # loops to check for new data
 client.loop_background()
