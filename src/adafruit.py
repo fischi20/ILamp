@@ -26,6 +26,12 @@ def get_last(feed_name):
     """
     return aio.receive_previous(get_feed_id(feed_name)).value
 
+def upload_data(feed_name, data):
+    """
+    Uploads the specified data to the specified feed
+    """
+    aio.send(get_feed_id(feed_name), data)
+
 def setup_MQTTClient(feed_update, feeds):
 
     def message(client, feed_id, payload):

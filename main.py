@@ -3,7 +3,7 @@ from time import sleep
 import sys
 from Adafruit_IO import Client, MQTTClient
 from src.config_loader import load_config
-from src.adafruit import create_clients, setup_MQTTClient, get_client, get_aio_client, get_last, get_feed_id
+from src.adafruit import create_clients, setup_MQTTClient, get_client, get_last, upload_data
 
 config = load_config(__file__)
 if not config: # exits if no config was found
@@ -106,7 +106,6 @@ def feed_handler(client, feed_id, payload):
 create_clients(config.get("Adafruit_IO_username"), config.get("Adafruit_IO_key"))
 setup_MQTTClient(feed_handler, feed_list)
 client = get_client()
-aio = get_aio_client()
 
 client.connect()
 
