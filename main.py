@@ -14,7 +14,6 @@ feed_list = list() # feeds list
 for(k, value) in feeds.items(): #creates an array of all the feeds for mqtt client
     feed_list.append(value)
 
-#* globals
 color = (0, 0, 0)
 secondary_color = (0, 0, 0)
 light_on = False
