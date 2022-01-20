@@ -14,38 +14,48 @@
             "description": "Uses the Sense hat with a lower luminosity",
             "default": false
         },
-        "color":{
-            "type":"array",
-            "maxLength": 3,
-            "minLength": 3,
-            "items": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 255
-            },
-            "default": [255, 255, 255]
-        },
-        "use_adafruit_color":{
-            "type": "boolean",
-            "description": "Use the color saved in adafruit IO instead of the color in the config file",
-            "default": true
-        },
-        "temperature_treshhold":{
+        "min_temp":{
             "type":"number",
-            "description": "Number used to switch color based on the temperature",
-            "default": 20
+            "description": "Min of the temperature range that impacts the color change function",
+            "default": -20
+        },
+        "max_temp":{
+            "type": "number",
+            "description": "Max Min of the temperature range that impacts the color change function",
+            "default": 40
         },
         "feeds":{
-            "type":"array",
+            "type":"object",
             "description": "Which feeds to listen on the adafruit IO service",
-            "items": {
-                "type": "string"
+            "properties": {
+                "light_toggle": {
+                    "description": "Name of the feed which should bet used to toggle the light",
+                    "type":"string"
+                },
+                "light_color":{
+                    "description": "Name of the feed which should be used to set the light color",
+                    "type": "string"
+                },
+                "temp":{
+                    "type":"string",
+                    "description": "Name of the feed which should be used to upload the temperature to"
+                },
+                "humidity":{
+                    "type": "string",
+                    "description": "Name of the feed which should be used to upload the humidity to"
+                },
+                "secondary_color":{
+                    "type":"string",
+                    "description": "Name of the feed wich should be used to set the secondardy color"
+                }
             }
         }
     },
     "required":[
         "Adafruit_IO_key",
         "Adafruit_IO_username",
-        "feeds"
+        "feeds",
+        "min_temp",
+        "max_temp"
     ]
 }

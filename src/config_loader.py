@@ -14,5 +14,4 @@ def load_config(main_file):
     except FileNotFoundError:
         readme = pathlib.Path(main_file).parent.joinpath('README.md').resolve()
         print(f"Couldn't find config.json file, please check out the {readme}")
-
     return config
