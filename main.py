@@ -1,4 +1,4 @@
-# from sense_hat import SenseHat
+#from sense_hat import SenseHat
 from time import sleep
 import sys
 from Adafruit_IO import Client, MQTTClient
