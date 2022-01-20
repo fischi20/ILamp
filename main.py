@@ -54,7 +54,7 @@ def set_color(new_color, primary_color = True):
     else:
         secondary_color = new_color
 
-def lerpColor(cold, hot, t):
+def lerp_color(cold, hot, t):
     """
     Linearly interpolates between two colors
 
@@ -108,7 +108,7 @@ def feed_handler(client, feed_id, payload):
         print("secondary color changed to: " + payload)
         set_color(payload, False)
 
-def calcColorPercent(min, max, temp):
+def calc_color_percent(min, max, temp):
     """
     Calculates the percentage of the color range that the temperature is in
 
@@ -149,8 +149,16 @@ while True:
 
     if light_on:
         # calc color
-        display_color = lerpColor(secondary_color, color, calcColorPercent(min_temp, max_temp, temp))
+        display_color = lerp_color(secondary_color, color, calc_color_percent(min_temp, max_temp, temp))
 
         sense.clear(display_color)
+        
+        # another approach very similar to the first one
+        sense_temp = sense.get_temperature()
+        color = lerp_color(cold, hot, get_color_percent(min_temp, max_temp, sense_temp))
+      
+        #updateLight(sense, lerp_color(cold, hot, get_color_percent(-20, 40, temp)))
+        #updateLight(sense, color)
+        sense.clear(color)
     """
     sleep(1) # sleep for n seconds
