@@ -5,24 +5,6 @@ from Adafruit_IO import Client, MQTTClient
 from src.config_loader import load_config
 from src.adafruit import create_clients, setup_MQTTClient, get_client, get_last, upload_data
 
-config = load_config(__file__)
-if not config: # exits if no config was found
-    sys.exit()
-
-feeds = config.get("feeds") # feeds dictionary
-feed_list = list() # feeds list
-for(k, value) in feeds.items(): #creates an array of all the feeds for mqtt client
-    feed_list.append(value)
-
-color = (0, 0, 0)
-secondary_color = (0, 0, 0)
-light_on = False
-min_temp = config.get("min_temp")
-max_temp = config.get("max_temp")
-# sense = SenseHat()
-# sense.clear()
-# sense.low_light = config.get('low_light_mode') or False
-
 
 def hex_to_rgb(value):
     """
@@ -125,40 +107,59 @@ def calc_color_percent(min, max, temp):
     return tp
 
 
-create_clients(config.get("Adafruit_IO_username"), config.get("Adafruit_IO_key"))
-setup_MQTTClient(feed_handler, feed_list)
-client = get_client()
+if __name__ == "__main__":
+    config = load_config(__file__)
+    if not config: # exits if no config was found
+        sys.exit()
 
-client.connect()
+    feeds = config.get("feeds") # feeds dictionary
+    feed_list = list() # feeds list
+    for(k, value) in feeds.items(): #creates an array of all the feeds for mqtt client
+        feed_list.append(value)
 
-#get last values
-set_light(get_last(feeds.get("light_toggle"))) # load the state of the light
-set_color(get_last(feeds.get("secondary_color")), False) # load the color of the light
-set_color(get_last(feeds.get("light_color"))) # load default color from adafruit_io
+    color = (0, 0, 0)
+    secondary_color = (0, 0, 0)
+    light_on = False
+    min_temp = config.get("min_temp")
+    max_temp = config.get("max_temp")
+    # sense = SenseHat()
+    # sense.clear()
+    # sense.low_light = config.get('low_light_mode') or False
+    
+    create_clients(config.get("Adafruit_IO_username"), config.get("Adafruit_IO_key"))
+    setup_MQTTClient(feed_handler, feed_list)
+    client = get_client()
 
-# loops to check for new data
-client.loop_background()
+    client.connect()
+
+    #get last values
+    set_light(get_last(feeds.get("light_toggle"))) # load the state of the light
+    set_color(get_last(feeds.get("secondary_color")), False) # load the color of the light
+    set_color(get_last(feeds.get("light_color"))) # load default color from adafruit_io
+
+    # loops to check for new data
+    client.loop_background()
 
 
-while True:
-    """
-    temp = sense.get_temperature()
+    while True:
+        """
+        temp = sense.get_temperature()
 
-    upload_data(feeds.get("temp"), temp) # uploads the temperature to adafruit_io
-    upload_data(feeds.get("humidity"), sense.get_humidity()) # uploads the humidity to adafruit_io
+        upload_data(feeds.get("temp"), temp) # uploads the temperature to adafruit_io
+        upload_data(feeds.get("humidity"), sense.get_humidity()) # uploads the humidity to adafruit_io
 
-    if light_on:
-        # calc color
-        display_color = lerp_color(secondary_color, color, calc_color_percent(min_temp, max_temp, temp))
+        if light_on:
+            # calc color
+            display_color = lerp_color(secondary_color, color, calc_color_percent(min_temp, max_temp, temp))
 
-        sense.clear(display_color)
-        
-        # another approach very similar to the first one
-        sense_temp = sense.get_temperature()
-        color = lerp_color(cold, hot, get_color_percent(min_temp, max_temp, sense_temp))
-      
-        #updateLight(sense, lerp_color(cold, hot, get_color_percent(-20, 40, temp)))
-        #updateLight(sense, color)
-        sense.clear(color)
-    """
-    sleep(1) # sleep for n seconds
+            sense.clear(display_color)
+
+            # another approach very similar to the first one
+            sense_temp = sense.get_temperature()
+            color = lerp_color(cold, hot, get_color_percent(min_temp, max_temp, sense_temp))
+
+            #updateLight(sense, lerp_color(cold, hot, get_color_percent(-20, 40, temp)))
+            #updateLight(sense, color)
+            sense.clear(color)
+        """
+        sleep(1) # sleep for n seconds
