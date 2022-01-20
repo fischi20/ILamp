@@ -3,10 +3,14 @@
     "Adafruit_IO_key": "",
     "Adafruit_IO_username": "",
     "low_light_mode": false,
-    "color": [
-        255, 255, 255
-    ],
-    "use_adafruit_color": true,
     "temperature_treshhold": 20,
-    "feeds": ["ToggleLight", "LightColor"]
+    "min_temp": -20,
+    "max_temp": 40,
+    "feeds":{
+        "light_toggle": "",
+        "light_color": "",
+        "secondary_color": "",
+        "humidity": "",
+        "temp": ""
+    }
 }
